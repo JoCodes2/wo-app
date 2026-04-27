@@ -3,5 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('web.beranda');
+});
+
+Route::get('/daftar-wo', function () {
+    return view('web.daftar-wo');
 });
