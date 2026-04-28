@@ -4,6 +4,7 @@ use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
 use Illuminate\Support\Facades\Route;
 
+// ui
 Route::get('/', function () {
     return view('web.beranda');
 });
@@ -24,6 +25,7 @@ Route::get('/register', function () {
     return view('auth.register');
 });
 
+// end ui
 Route::get('/kategori', function () {
     return view('pages.kategori');
 });
