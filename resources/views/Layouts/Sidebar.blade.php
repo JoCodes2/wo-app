@@ -52,6 +52,18 @@
                 <div data-i18n="User">Pengguna</div>
             </a>
         </li>
+        <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
+            <a href="/kategori" class="menu-link">
+                <i class="menu-icon fa-solid fa-tags"></i>
+                <div data-i18n="Kategori">Kategori Layanan</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->is('layanan*') ? 'active' : '' }}">
+            <a href="/layanan" class="menu-link">
+                <i class="menu-icon fa-solid fa-concierge-bell"></i>
+                <div data-i18n="Layanan">Layanan</div>
+            </a>
+        </li>
 
     </ul>
 </aside>
