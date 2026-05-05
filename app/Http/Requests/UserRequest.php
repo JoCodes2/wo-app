@@ -33,11 +33,12 @@ class UserRequest extends FormRequest
                 : 'required|string|min:8',
             'role' => ['required', Rule::in(['admin', 'wo', 'user'])],
 
-            'nama_wo'           => 'required_if:role,wo|string|max:255',
-            'biodata_pengelola' => 'required_if:role,wo|string',
-            'alamat_wo'         => 'required_if:role,wo|string',
-            'deskripsi_wo'      => 'required_if:role,wo|string',
-            'kontak'            => 'required_if:role,wo|string|max:20',
+            // Tambahkan nullable sebelum string
+            'nama_wo'           => 'required_if:role,wo|nullable|string|max:255',
+            'biodata_pengelola' => 'required_if:role,wo|nullable|string',
+            'alamat_wo'         => 'required_if:role,wo|nullable|string',
+            'deskripsi_wo'      => 'required_if:role,wo|nullable|string',
+            'kontak'            => 'required_if:role,wo|nullable|string|max:20',
             'foto_logo'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'sosial_media'      => 'nullable|string|max:255',
         ];

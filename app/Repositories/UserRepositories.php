@@ -35,7 +35,7 @@ class UserRepositories implements UserInterfaces
         DB::beginTransaction();
         try {
             $user = new $this->userModel;
-            $user->username = $request->input('email');
+            $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
             $user->nama_lengkap = $request->input('nama_lengkap');
             $user->email = $request->input('email');
