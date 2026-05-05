@@ -31,7 +31,10 @@ class UserRequest extends FormRequest
             'password' => $isUpdate
                 ? 'nullable|string|min:8'
                 : 'required|string|min:8',
-            'role' => ['required', Rule::in(['admin', 'wo', 'user'])],
+            'role' => [
+                $isUpdate ? 'nullable' : 'required',
+                Rule::in(['admin', 'wo', 'user'])
+            ],
 
             // Tambahkan nullable sebelum string
             'nama_wo'           => 'required_if:role,wo|nullable|string|max:255',

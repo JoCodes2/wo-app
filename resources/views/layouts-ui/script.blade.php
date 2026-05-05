@@ -65,3 +65,23 @@
         });
     }
 </script>
+<script>
+    function handleLogout() {
+    confirmAlert("Apakah Anda yakin ingin keluar?", async () => {
+        try {
+            const response = await $.ajax({
+                url: `${appUrl}/wo/logout`,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            await successAlert("Berhasil keluar.");
+            window.location.href = '/login';
+        } catch (error) {
+            window.location.href = '/logout-manual';
+        }
+    });
+}
+</script>

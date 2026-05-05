@@ -5,7 +5,7 @@ use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
 use App\Http\Controllers\CMS\UserController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 // ui
 Route::get('/', function () {
     return view('web.beranda');
@@ -17,9 +17,7 @@ Route::get('/daftar-wo', function () {
 Route::get('/profile-wo/{id}', function () {
     return view('web.profile-wo');
 });
-Route::get('/profile-saya', function () {
-    return view('web.profile-saya');
-});
+
 Route::get('/login', function () {
     return view('auth.login');
 });
@@ -38,8 +36,18 @@ Route::get('/register', function () {
 });
 Route::post('wo/login', [AuthController::class, 'login']);
 
-// admin
+
 Route::middleware(['auth', 'web'])->group(function () {
+
+    // user
+    Route::get('/profile-saya', function () {
+        $user = Auth::user();
+        if (!$user) {
+            return redirect('/login');
+        }
+        return view('web.profile-saya', compact('user'));
+    });
+    // admin
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     });

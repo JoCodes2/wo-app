@@ -40,7 +40,7 @@ class authService {
                     if (role === 'wo') {
                         window.location.href = '/dashboard';
                     } else if (role === 'user') {
-                        window.location.href = '/';
+                        window.location.href = '/profile-saya';
                     } else {
                         window.location.href = '/dashboard';
                     }
