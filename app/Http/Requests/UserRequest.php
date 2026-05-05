@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                $isUpdate ? Rule::unique('users', 'email')->ignore($userId) : 'unique:users,email',
+                $isUpdate ? '' : 'unique:users,email',
             ],
             'no_hp' => 'required|string|max:20',
             'password' => $isUpdate

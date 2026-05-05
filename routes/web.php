@@ -62,6 +62,15 @@ Route::middleware(['auth', 'web'])->group(function () {
         return view('pages.user ');
     });
 
+    // wo
+    Route::get('/profile-wo', function () {
+        $user = Auth::user();
+        if (!$user) {
+            return redirect('/login');
+        }
+        return view('pages.profile-wo', compact('user'));
+    });
+
     Route::post('wo/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
