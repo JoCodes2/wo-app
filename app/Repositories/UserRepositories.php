@@ -26,8 +26,17 @@ class UserRepositories implements UserInterfaces
 
     public function getAllData()
     {
-        $data = $this->userModel::with('profilWo')->get();
-        return $data->isEmpty() ? $this->dataNotFound() : $this->success($data);
+        try {
+            $data = $this->userModel::with('profilWo')
+                ->whereIn('role', ['wo', 'user'])
+                ->get();
+
+            return $data->isEmpty()
+                ? $this->dataNotFound()
+                : $this->success($data);
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage(), 400, $th, class_basename($this), __FUNCTION__);
+        }
     }
 
     public function createData(UserRequest $request)

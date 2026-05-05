@@ -50,6 +50,9 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/kategori', function () {
         return view('pages.kategori');
     });
+    Route::get('/user', function () {
+        return view('pages.user ');
+    });
 
     Route::post('wo/logout', [AuthController::class, 'logout'])->name('logout');
 });

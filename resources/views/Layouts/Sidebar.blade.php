@@ -46,12 +46,6 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Master Data</span>
         </li>
-        <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
-            <a href="/user" class="menu-link">
-                <i class="menu-icon fa-solid fa-users"></i>
-                <div data-i18n="User">Pengguna</div>
-            </a>
-        </li>
         <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
             <a href="/kategori" class="menu-link">
                 <i class="menu-icon fa-solid fa-tags"></i>
@@ -64,6 +58,11 @@
                 <div data-i18n="Layanan">Layanan</div>
             </a>
         </li>
-
+         <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
+            <a href="/user" class="menu-link">
+                <i class="menu-icon fa-solid fa-users"></i>
+                <div data-i18n="User">Pengguna</div>
+            </a>
+        </li>
     </ul>
 </aside>
