@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMS\AuthController;
 use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
 use App\Http\Controllers\CMS\UserController;
@@ -27,13 +28,32 @@ Route::get('/register', function () {
 });
 
 // end ui
-Route::get('/kategori', function () {
-    return view('pages.kategori');
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware('guest')->name('login');
+Route::get('/register', function () {
+    return view('auth.register');
+});
+Route::post('wo/login', [AuthController::class, 'login']);
+
+// admin
+Route::middleware(['auth', 'web'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('pages.dashboard');
+    });
+
+    Route::get('/layanan', function () {
+        return view('pages.layanan');
+    });
+    Route::get('/kategori', function () {
+        return view('pages.kategori');
+    });
+
+    Route::post('wo/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/layanan', function () {
-    return view('pages.layanan');
-});
 
 Route::prefix('wo')->group(function () {
     Route::prefix('layanan')->controller(LayananController::class)->group(function () {

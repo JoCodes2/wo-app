@@ -35,7 +35,7 @@
 
 
 <script>
-    const urlLogout = 'simmp/logout'
+    const urlLogout = 'wo/logout'
     $(document).ready(function() {
         $('#btnLogout').click(function(e) {
             Swal.fire({
@@ -48,7 +48,7 @@
                 if (result.isConfirmed) {
                     e.preventDefault();
                     $.ajax({
-                        url: `{{ url('simmp/logout') }}`,
+                        url: `{{ url('wo/logout') }}`,
                         method: 'POST',
                         dataType: 'json',
                         headers: {

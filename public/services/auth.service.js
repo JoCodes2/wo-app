@@ -27,7 +27,7 @@ class authService {
             submitButton.prop('disabled', true).html('<i class="fa fa-spinner fa-spin mr-2"></i> Memproses...');
 
             // Sesuaikan endpoint dengan route login Laravel Anda
-            const responseData = await this.ajaxRequest(`${appUrl}/login`, 'POST', formData);
+            const responseData = await this.ajaxRequest(`${appUrl}/wo/login`, 'POST', formData);
 
             if (responseData.status === "success") {
                 Swal.close();
