@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('foto_logo')->nullable();
             $table->string('kontak');
             $table->string('sosial_media')->nullable();
+            $table->year('tahun_bergabung')->nullable();
             $table->timestamps();
         });
     }

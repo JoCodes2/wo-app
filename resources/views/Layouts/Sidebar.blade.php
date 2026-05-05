@@ -1,6 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <!-- Logo Section -->
     <div class="app-brand demo py-3 px-4">
-        <a href="/" class="app-brand-link d-flex align-items-center text-decoration-none">
+        <a href="/dashboard" class="app-brand-link d-flex align-items-center text-decoration-none">
             <span class="app-brand-logo demo d-flex align-items-center justify-content-center position-relative"
                 style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.9);
                  border-radius: 12px; box-shadow: 0 8px 15px rgba(239, 91, 220, 0.1);">
@@ -33,43 +34,65 @@
     <div class="menu-inner-shadow mt-3"></div>
 
     <ul class="menu-inner py-1">
+        <!-- HEADER UTAMA -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Utama</span>
         </li>
-        <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
-            <a href="/" class="menu-link">
+        <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
+            <a href="/dashboard" class="menu-link">
                 <i class="menu-icon fa-solid fa-house"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Master Data</span>
-        </li>
-        <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
-            <a href="/user" class="menu-link">
-                <i class="menu-icon fa-solid fa-users"></i>
-                <div data-i18n="User">Pengguna</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
-            <a href="/kategori" class="menu-link">
-                <i class="menu-icon fa-solid fa-tags"></i>
-                <div data-i18n="Kategori">Kategori Layanan</div>
-            </a>
-        </li>
-        <li class="menu-item {{ request()->is('layanan*') ? 'active' : '' }}">
-            <a href="/layanan" class="menu-link">
-                <i class="menu-icon fa-solid fa-concierge-bell"></i>
-                <div data-i18n="Layanan">Layanan</div>
-            </a>
-        </li>
+        {{-- MENU KHUSUS ADMIN --}}
+        @if(auth()->user()->role === 'admin')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Master Data (Admin)</span>
+            </li>
+            <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
+                <a href="/kategori" class="menu-link">
+                    <i class="menu-icon fa-solid fa-tags"></i>
+                    <div data-i18n="Kategori">Kategori Layanan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
+                <a href="/user" class="menu-link">
+                    <i class="menu-icon fa-solid fa-users-gear"></i>
+                    <div data-i18n="User">Management User</div>
+                </a>
+            </li>
+        @endif
 
-        <li class="menu-item {{ request()->is('galeri*') ? 'active' : '' }}">
-            <a href="/galeri" class="menu-link">
-                <i class="menu-icon fa-solid fa-image"></i>
-                <div data-i18n="Galeri">Galeri</div>
-            </a>
-        </li>
+        {{-- MENU KHUSUS WO --}}
+        @if(auth()->user()->role === 'wo')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Manajemen Bisnis</span>
+            </li>
+            <li class="menu-item {{ request()->is('layanan*') ? 'active' : '' }}">
+                <a href="/layanan" class="menu-link">
+                    <i class="menu-icon fa-solid fa-concierge-bell"></i>
+                    <div data-i18n="Layanan">Layanan Saya</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('pemesanan*') ? 'active' : '' }}">
+                <a href="/pemesanan" class="menu-link">
+                    <i class="menu-icon fa-solid fa-cart-shopping"></i>
+                    <div data-i18n="Pemesanan">Pemesanan</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('galeri*') ? 'active' : '' }}">
+                <a href="/galeri" class="menu-link">
+                    <i class="menu-icon fa-solid fa-images"></i>
+                    <div data-i18n="Galeri">Galeri</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('profile-wo*') ? 'active' : '' }}">
+                <a href="/profile-wo" class="menu-link">
+                    <i class="menu-icon fa-solid fa-store"></i>
+                    <div data-i18n="ProfileWO">Profil Bisnis WO</div>
+                </a>
+            </li>
+        @endif
     </ul>
 </aside>
