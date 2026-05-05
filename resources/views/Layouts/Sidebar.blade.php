@@ -65,5 +65,11 @@
             </a>
         </li>
 
+        <li class="menu-item {{ request()->is('galeri*') ? 'active' : '' }}">
+            <a href="/galeri" class="menu-link">
+                <i class="menu-icon fa-solid fa-image"></i>
+                <div data-i18n="Galeri">Galeri</div>
+            </a>
+        </li>
     </ul>
 </aside>
