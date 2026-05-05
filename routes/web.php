@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
+use App\Http\Controllers\CMS\UserController;
 use Illuminate\Support\Facades\Route;
 
 // ui
@@ -49,5 +50,13 @@ Route::prefix('wo')->group(function () {
         Route::get('/get/{id}', 'getDataById');
         Route::post('/update/{id}', 'updateData');
         Route::delete('/delete/{id}', 'deleteData');
+    });
+    Route::prefix('user')->controller(UserController::class)->group(function () {
+        Route::get('/', 'getAllData');
+        Route::post('/create', 'createData');
+        Route::get('/get/{id}', 'getDataById');
+        Route::post('/update/{id}', 'updateData');
+        Route::delete('/delete/{id}', 'deleteData');
+        Route::patch('/aktivasi/{id}', 'aktivasiAkunWo');
     });
 });
