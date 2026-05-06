@@ -21,16 +21,28 @@
 </main>
 
 <footer class="bg-white border-t border-rose-100 py-8">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-    <div class="flex items-center gap-2 text-sm text-gray-600">
-    <span class="text-[#a03d32]">♥</span>
-    <span class="font-semibold font-display">
-        <span class="text-gray-900">Palu</span><span class="text-[#a03d32]">Wedding</span>
-    </span>
-    <span class="text-gray-400">— Temukan Wedding Organizer terbaik di Kota Palu.</span>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center sm:justify-between gap-4 text-center sm:text-left">
+
+    <div class="flex flex-col sm:flex-row items-center gap-2 text-sm text-gray-600">
+      <div class="flex items-center gap-2">
+        <span class="text-[#a03d32]">♥</span>
+        <span class="font-semibold font-display text-lg sm:text-sm">
+          <span class="text-gray-900">Palu</span><span class="text-[#a03d32]">Wedding</span>
+        </span>
+      </div>
+
+      <span class="hidden sm:block text-gray-400">—</span>
+
+      <span class="text-gray-400 max-w-[280px] sm:max-w-none">
+        Temukan Wedding Organizer terbaik di Kota Palu.
+      </span>
     </div>
-    <p class="text-xs text-gray-400">© 2026 PaluWedding. Semua hak dilindungi.</p>
-</div>
+
+    <p class="text-xs text-gray-400 mt-2 sm:mt-0">
+      &copy; 2026 PaluWedding. Semua hak dilindungi.
+    </p>
+
+  </div>
 </footer>
 
 @include('layouts-ui.script')

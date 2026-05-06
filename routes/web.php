@@ -5,6 +5,7 @@ use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
 use App\Http\Controllers\CMS\UserController;
+use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 // ui
@@ -111,4 +112,11 @@ Route::prefix('wo')->group(function () {
         Route::get('/get/{id}', 'getDataById');
         Route::delete('/delete/{id}', 'deleteData');
     });
+});
+Route::prefix('landing')->controller(LandingPageController::class)->group(function () {
+    Route::get('/wo', 'index');
+    Route::get('/wo/categories', 'categories');
+    Route::get('/wo/{id}', 'show');
+    Route::get('/get-wo', 'getWo');
+    Route::get('/top-wo', 'getTopWo');
 });

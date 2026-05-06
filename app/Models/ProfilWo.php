@@ -38,4 +38,17 @@ class ProfilWo extends Model
     {
         return $this->hasMany(Galeri::class, 'wo_id', 'id');
     }
+    public function ulasans()
+    {
+        return $this->hasManyThrough(
+            Ulasan::class,
+            Pemesanan::class,
+            'id',           // Key di pemesanans (sementara, akan dioverride join)
+            'pemesanan_id', // Foreign key di ulasans
+            'id',           // Local key di profil_wo
+            'layanan_id'    // Local key di pemesanans
+        )
+            ->join('layanans', 'layanans.id', '=', 'pemesanans.layanan_id')
+            ->where('layanans.wo_id', $this->id);
+    }
 }
