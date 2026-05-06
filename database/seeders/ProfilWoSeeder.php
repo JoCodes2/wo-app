@@ -10,21 +10,25 @@ class ProfilWoSeeder extends Seeder
 {
     public function run(): void
     {
-        $wo1 = User::where('email', 'marita@mail.com')->first();
-        ProfilWo::create([
-            'user_id' => $wo1->id,
-            'nama_wo' => 'Marita House of Wedding',
-            'biodata_pengelola' => 'Profesional MUA Palu',
-            'alamat_wo' => 'Jalan Towua, Kota Palu',
-            'deskripsi_wo' => 'Spesialis Mapacci dan Resepsi',
-            'kontak' => '081243438692',
-            'sosial_media' => '@marita_wedding_palu'
-        ]);
+        $dataWo = [
+            ['email' => 'marita@mail.com', 'nama' => 'Marita House of Wedding', 'alamat' => 'Jl. Towua, Kota Palu', 'desc' => 'Spesialis pengantin tradisional dan modern dengan sentuhan MUA profesional.'],
+            ['email' => 'moy@mail.com', 'nama' => 'Moy Organizer', 'alamat' => 'Jl. Moh. Hatta, Palu', 'desc' => 'Penyedia layanan Wedding Organizer yang detail dan terorganisir untuk hari bahagia Anda.'],
+            ['email' => 'thechox@mail.com', 'nama' => 'Thechox', 'alamat' => 'Jl. Juanda, Palu', 'desc' => 'Creative wedding planner dengan konsep unik dan kekinian untuk pasangan muda.'],
+            ['email' => 'warna@mail.com', 'nama' => 'Warna Organizer', 'alamat' => 'Jl. S. Parman, Palu', 'desc' => 'Mewujudkan pernikahan impian dengan penuh warna dan keceriaan di setiap momen.'],
+            ['email' => 'happy@mail.com', 'nama' => 'Happy EO', 'alamat' => 'Jl. Tadulako, Palu', 'desc' => 'Solusi lengkap perencanaan acara dan pernikahan yang menyenangkan tanpa rasa khawatir.'],
+        ];
 
-        $wo2 = User::where('email', 'garden@mail.com')->first();
-        ProfilWo::create(['user_id' => $wo2->id, 'nama_wo' => 'Palu Outdoor Wedding', 'biodata_pengelola' => 'Rian Garden', 'alamat_wo' => 'Jl. Moh. Hatta, Palu', 'deskripsi_wo' => 'Spesialis Outdoor', 'kontak' => '08520', 'sosial_media' => '@palu_outdoor']);
-
-        $wo3 = User::where('email', 'tadulako@mail.com')->first();
-        ProfilWo::create(['user_id' => $wo3->id, 'nama_wo' => 'Tadulako WO', 'biodata_pengelola' => 'Team Tadulako', 'alamat_wo' => 'Jl. Tondo, Palu', 'deskripsi_wo' => 'Modern & Creative', 'kontak' => '08218', 'sosial_media' => '@tadulako_wo']);
+        foreach ($dataWo as $item) {
+            $user = User::where('email', $item['email'])->first();
+            ProfilWo::create([
+                'user_id' => $user->id,
+                'nama_wo' => $item['nama'],
+                'biodata_pengelola' => 'Pengelola ' . $item['nama'],
+                'alamat_wo' => $item['alamat'],
+                'deskripsi_wo' => $item['desc'],
+                'kontak' => $user->no_hp,
+                'sosial_media' => '@' . strtolower(str_replace(' ', '_', $item['nama']))
+            ]);
+        }
     }
 }

@@ -174,12 +174,23 @@ class LandingPageRepositories implements LandingPageInterfaces
     public function getDetailWo($id)
     {
         try {
-            $data = $this->profilWoModel::with(['layanans.kategori', 'galeris', 'ulasans.user'])
-                ->withCount(['ulasans as total_vote'])
-                ->withAvg('ulasans as rating_rata_rata', 'rating')
-                ->find($id);
+            $data = $this->profilWoModel::with([
+                'galeris',
+                'layanans.kategori',
+                'layanans.pemesanans.ulasan.user'
+            ])->find($id);
 
             if (!$data) return $this->idOrDataNotFound();
+
+            $allUlasans = $data->layanans->flatMap(function ($layanan) {
+                return $layanan->pemesanans->map(function ($pemesanan) {
+                    return $pemesanan->ulasan;
+                });
+            })->filter()->values();
+            $data->total_vote = $allUlasans->count();
+            $data->rating_rata_rata = $allUlasans->count() > 0 ? $allUlasans->avg('rating') : 0;
+
+            $data->ulasans = $allUlasans;
 
             return $this->success($data);
         } catch (\Throwable $th) {

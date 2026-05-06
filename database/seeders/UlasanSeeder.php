@@ -11,14 +11,23 @@ class UlasanSeeder extends Seeder
 {
     public function run(): void
     {
-        $pesanan = Pemesanan::where('status_pesanan', 'selesai')->first();
-        $andi = User::where('email', 'andi@mail.com')->first();
+        $pesanans = Pemesanan::where('status_pesanan', 'selesai')->get();
 
-        Ulasan::create([
-            'pemesanan_id' => $pesanan->id,
-            'user_id' => $andi->id,
-            'rating' => 5,
-            'komentar' => 'Sangat bagus pelayanannya!'
-        ]);
+        $komentars = [
+            'Sangat puas dengan pelayanannya, tim sangat profesional!',
+            'Dekorasinya mewah sekali, melebihi ekspektasi saya.',
+            'MUA-nya sangat halus, riasannya tahan lama sampai acara selesai.',
+            'Koordinasi tim lapangan sangat rapi, acara berjalan lancar.',
+            'Harga sangat bersahabat dengan kualitas bintang lima.'
+        ];
+
+        foreach ($pesanans as $key => $p) {
+            \App\Models\Ulasan::create([
+                'pemesanan_id' => $p->id,
+                'user_id' => $p->user_id,
+                'rating' => rand(4, 5),
+                'komentar' => $komentars[$key % 5]
+            ]);
+        }
     }
 }

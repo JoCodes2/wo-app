@@ -189,6 +189,8 @@
                     url: `${appUrl}/landing/top-wo`,
                     method: 'GET'
                 });
+                console.log(response);
+
 
                 $skeleton.addClass('hidden');
 
@@ -225,7 +227,7 @@
                                         <p class="text-[9px] text-gray-400 uppercase font-bold">Mulai dari</p>
                                         <p class="font-display font-bold text-base text-[#a03d32]">Rp ${price}</p>
                                     </div>
-                                    <a href="${appUrl}/detail-wo/${item.id}" class="w-10 h-10 bg-gray-900 text-white rounded-xl flex items-center justify-center hover:bg-[#a03d32] transition-colors">
+                                   <a href="${appUrl}/profile-wo/${item.id}" class="w-10 h-10 bg-gray-900 text-white rounded-xl flex items-center justify-center hover:bg-[#a03d32] transition-colors">
                                         <i class="fa-solid fa-arrow-right text-xs"></i>
                                     </a>
                                 </div>

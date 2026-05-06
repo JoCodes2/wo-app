@@ -16,10 +16,10 @@ Route::get('/', function () {
 Route::get('/daftar-wo', function () {
     return view('web.daftar-wo');
 });
-Route::get('/profile-wo/{id}', function () {
-    return view('web.profile-wo');
-});
-
+// routes/web.php
+Route::get('/profile-wo/{id}', function ($id) {
+    return view('web.profile-wo', ['id' => $id]);
+})->where('id', '[0-9a-fA-F-]{36}')->name('profile.wo');
 Route::get('/login', function () {
     return view('auth.login');
 });
