@@ -11,17 +11,27 @@ class LayananSeeder extends Seeder
 {
     public function run(): void
     {
-        $marita = ProfilWo::where('nama_wo', 'Marita House of Wedding')->first();
-        $tradisional = Kategori::where('nama_kategori', 'Tradisional')->first();
+        $kategori = Kategori::first() ?? Kategori::create(['nama_kategori' => 'Wedding Package']);
+        $wos = ProfilWo::all();
 
-        Layanan::create([
-            'wo_id' => $marita->id,
-            'kategori_id' => $tradisional->id,
-            'nama_layanan' => 'Paket Nikah 23 Juta',
-            'harga' => 23000000,
-            'detail_layanan' => 'Rias, Dekorasi Rumah & Gedung, Bonus MUA'
-        ]);
+        foreach ($wos as $wo) {
+            $packages = [
+                ['nama' => 'Bronze Intimate', 'harga' => 12000000],
+                ['nama' => 'Silver Elegant', 'harga' => 25000000],
+                ['nama' => 'Gold Royal', 'harga' => 45000000],
+                ['nama' => 'Platinum Ballroom', 'harga' => 75000000],
+                ['nama' => 'Diamond Luxury', 'harga' => 125000000],
+            ];
 
-        // Tambahkan layanan lain untuk WO lainnya di sini...
+            foreach ($packages as $p) {
+                Layanan::create([
+                    'wo_id' => $wo->id,
+                    'kategori_id' => $kategori->id,
+                    'nama_layanan' => $p['nama'] . " - " . $wo->nama_wo,
+                    'harga' => $p['harga'],
+                    'detail_layanan' => "Layanan unggulan dari {$wo->nama_wo} mencakup: \n• Dekorasi Pelaminan Modern Custom\n• MUA & Busana Pengantin Premium\n• Dokumentasi Foto & Video Cinematic\n• Tim WO Profesional di Lapangan\n• Sound System & Entertainment Pack."
+                ]);
+            }
+        }
     }
 }

@@ -11,15 +11,17 @@ class PemesananSeeder extends Seeder
 {
     public function run(): void
     {
-        $andi = User::where('email', 'andi@mail.com')->first();
-        $layanan = Layanan::first();
+        $users = User::where('role', 'user')->get();
+        $layanans = Layanan::all();
 
-        Pemesanan::create([
-            'user_id' => $andi->id,
-            'layanan_id' => $layanan->id,
-            'tgl_acara' => '2026-06-10',
-            'lokasi_acara' => 'Gedung Jodjokodi, Palu',
-            'status_pesanan' => 'selesai'
-        ]);
+        foreach ($layanans as $layanan) {
+            Pemesanan::create([
+                'user_id' => $users->random()->id,
+                'layanan_id' => $layanan->id,
+                'tgl_acara' => now()->addMonths(2),
+                'lokasi_acara' => 'Gedung Serbaguna Palu',
+                'status_pesanan' => 'selesai'
+            ]);
+        }
     }
 }

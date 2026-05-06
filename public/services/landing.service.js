@@ -59,15 +59,12 @@ class LandingService {
                     <div class="p-6">
                         <h3 class="font-bold text-gray-900 group-hover:text-[#a03d32] transition-colors line-clamp-1">${item.nama_wo}</h3>
                         <p class="text-xs text-gray-500 mt-1 mb-4"><i class="fa-solid fa-location-dot me-1 text-[#a03d32]"></i> ${item.alamat_wo}</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            ${item.kategori.map(k => `<span class="px-2 py-1 bg-rose-50 text-[#a03d32] text-[10px] font-bold rounded-md uppercase">${k}</span>`).join('')}
-                        </div>
                         <div class="flex items-center justify-between border-t border-[#f0ddd8] pt-4">
                             <div>
                                 <p class="text-[10px] text-gray-400 uppercase font-semibold">Mulai dari</p>
                                 <p class="text-sm font-bold text-[#a03d32]">Rp ${minPrice}</p>
                             </div>
-                            <a href="${appUrl}/detail-wo/${item.id}" class="px-4 py-2 bg-gray-900 text-white text-xs font-semibold rounded-xl hover:bg-[#a03d32] transition-colors">Detail</a>
+                            <a href="${appUrl}/profile-wo/${item.id}" class="px-4 py-2 bg-gray-900 text-white text-xs font-semibold rounded-xl hover:bg-[#a03d32] transition-colors">Detail</a>
                         </div>
                     </div>
                 </div>`;
