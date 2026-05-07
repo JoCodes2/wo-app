@@ -4,6 +4,7 @@ use App\Http\Controllers\CMS\AuthController;
 use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
+use App\Http\Controllers\CMS\PemesananController;
 use App\Http\Controllers\CMS\UserController;
 use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,9 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 });
-
+Route::get('/checkout/{id}', function ($id) {
+    return view('web.pemesanan', ['id' => $id]);
+})->where('id', '[0-9a-fA-F-]{36}')->name('checkout.index');
 // end ui
 
 
@@ -111,6 +114,12 @@ Route::prefix('wo')->group(function () {
         Route::post('/create', 'createData');
         Route::get('/get/{id}', 'getDataById');
         Route::delete('/delete/{id}', 'deleteData');
+    });
+    Route::prefix('pemesanan')->controller(PemesananController::class)->group(function () {
+        Route::get('/', 'getAllData');
+        Route::post('/create', 'createData');
+        Route::get('/get/{id}', 'getDataById');
+        Route::post('/konfirmasi/{id}', 'konfirmasiPesanan');
     });
 });
 Route::prefix('landing')->controller(LandingPageController::class)->group(function () {
