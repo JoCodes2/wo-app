@@ -161,6 +161,7 @@ class ProfileService {
         this.dom.ratingAvg.text(rating);
         this.dom.ratingVal.text(rating);
         this.dom.totalUlasanHead.text(`(${data.total_vote || 0} ulasan)`);
+        this.dom.totalUlasanBody.text(`(${data.total_vote || 0} ulasan)`);
         this.dom.statUlasan.text(`${data.total_vote || 0}+`);
         this.dom.statLayanan.text(data.layanans?.length || 0);
 
