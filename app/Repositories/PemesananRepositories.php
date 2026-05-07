@@ -31,10 +31,16 @@ class PemesananRepositories implements PemesananInterfaces
         if ($user->role === 'user') {
             $query->where('user_id', $user->id);
         } elseif ($user->role === 'wo') {
-            $query->whereHas('layanan', function ($q) use ($user) {
-                $q->where('wo_id', $user->id);
+            $profilWo = $user->profilWo;
+
+            if (!$profilWo) {
+                return $this->dataNotFound();
+            }
+            $query->whereHas('layanan', function ($q) use ($profilWo) {
+                $q->where('wo_id', $profilWo->id);
             });
         }
+
 
         $data = $query->latest()->get();
 

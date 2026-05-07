@@ -96,7 +96,6 @@ class KategoriService {
                 datatable.row.add([
                     index + 1,
                     `<div class="fw-semibold text-dark">${item.nama_kategori ?? '-'}</div>`,
-                    layananBadge,
                     `<div class="d-flex justify-content-center gap-2">${actionButtons}</div>`
                 ]);
             });

@@ -7,6 +7,7 @@ use App\Interfaces\UserInterfaces;
 use App\Models\User;
 use App\Models\ProfilWo;
 use App\Traits\HttpResponseTraits;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -117,6 +118,7 @@ class UserRepositories implements UserInterfaces
                     $wo->deskripsi_wo = $request->input('deskripsi_wo');
                     $wo->kontak = $request->input('kontak');
                     $wo->sosial_media = $request->input('sosial_media');
+                    $wo->tahun_bergabung = Carbon::now()->format('Y');
 
                     if ($request->hasFile('foto_logo')) {
                         if ($wo->foto_logo && file_exists(public_path('uploads/logo/' . $wo->foto_logo))) {
