@@ -28,7 +28,7 @@ class AuthReposittories implements AuthInterfaces
             } else {
                 $user = $this->userModel::where('email', $request->email)->first();
 
-                if ($user->role === 'wo' && $user->status == 'pending') {
+                if ($user->role === 'wo' && $user->status_akun == 'pending') {
                     Auth::logout();
                     return response()->json([
                         'status' => 'forbidden',

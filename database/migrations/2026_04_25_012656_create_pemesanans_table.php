@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pemesanans', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained('users');
-            $table->foreignUuid('layanan_id')->constrained('layanans'); // Nama field disesuaikan dengan tabel layanan
+            $table->foreignUuid('layanan_id')->constrained('layanans');
             $table->date('tgl_acara');
             $table->text('lokasi_acara');
             $table->text('catatan')->nullable();

@@ -26,6 +26,7 @@ class LandingPageRepositories implements LandingPageInterfaces
     {
         try {
             $query = DB::table('profil_wo as wo')
+                ->join('users as u_acc', 'wo.user_id', '=', 'u_acc.id')
                 ->select(
                     'wo.id',
                     'wo.nama_wo',
@@ -41,7 +42,8 @@ class LandingPageRepositories implements LandingPageInterfaces
                           WHERE l.wo_id = wo.id) as total_vote'),
                     DB::raw('COALESCE((SELECT MIN(harga) FROM layanans WHERE wo_id = wo.id), 0) as harga_min'),
                     DB::raw('COALESCE((SELECT MAX(harga) FROM layanans WHERE wo_id = wo.id), 0) as harga_max')
-                );
+                )
+                ->where('u_acc.status_akun', 'aktif');
 
             if ($request->filled('search')) {
                 $query->where('wo.nama_wo', 'like', '%' . trim($request->search) . '%');
@@ -118,6 +120,7 @@ class LandingPageRepositories implements LandingPageInterfaces
     {
         try {
             $data = DB::table('profil_wo as wo')
+                ->join('users as u_acc', 'wo.user_id', '=', 'u_acc.id')
                 ->select(
                     'wo.id',
                     'wo.nama_wo',
@@ -134,6 +137,7 @@ class LandingPageRepositories implements LandingPageInterfaces
                     DB::raw('(SELECT MIN(harga) FROM layanans WHERE wo_id = wo.id) as harga_min'),
                     DB::raw('(SELECT MAX(harga) FROM layanans WHERE wo_id = wo.id) as harga_max')
                 )
+                ->where('u_acc.status_akun', 'aktif')
                 ->get();
 
             return $this->formatRawData($data);

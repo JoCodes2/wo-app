@@ -22,6 +22,7 @@ class ProfilWo extends Model
         'foto_logo',
         'kontak',
         'sosial_media',
+        'tahun_bergabung',
     ];
 
     public function user()
