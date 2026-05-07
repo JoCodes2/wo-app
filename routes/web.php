@@ -47,18 +47,6 @@ Route::middleware(['auth', 'web'])->group(function () {
             return redirect('/login');
         }
         return view('web.profile-saya', compact('user'));
-<<<<<<< HEAD
-    });
-    // admin & wo
-    // UI dashboard (data diambil dari endpoint /dashboard/admin-stats dan /dashboard/wo-stats)
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard');
-    })->name('dashboard');
-
-    Route::get('/layanan', function () {
-        return view('pages.layanan');
-    });
-=======
     })->middleware('role:user');
     Route::get('/checkout/{id}', function ($id) {
         return view('web.pemesanan', ['id' => $id]);
@@ -68,7 +56,6 @@ Route::middleware(['auth', 'web'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->middleware('role:admin,wo');
->>>>>>> c22aaeb23873a5ad8e06c90d0cbb37db22709cd2
     Route::get('/kategori', function () {
         return view('pages.kategori');
     })->middleware('role:admin');
