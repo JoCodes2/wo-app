@@ -34,27 +34,12 @@
     <div class="menu-inner-shadow mt-3"></div>
 
     <ul class="menu-inner py-1">
-        <!-- HEADER UTAMA -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Utama</span>
-        </li>
-        <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
-            <a href="/dashboard" class="menu-link">
-                <i class="menu-icon fa-solid fa-house"></i>
-                <div data-i18n="Dashboard">Dashboard</div>
-            </a>
-        </li>
+
 
         {{-- MENU KHUSUS ADMIN --}}
         @if(auth()->user()->role === 'admin')
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Master Data (Admin)</span>
-            </li>
-            <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
-                <a href="/kategori" class="menu-link">
-                    <i class="menu-icon fa-solid fa-tags"></i>
-                    <div data-i18n="Kategori">Kategori Layanan</div>
-                </a>
             </li>
             <li class="menu-item {{ request()->is('user*') ? 'active' : '' }}">
                 <a href="/user" class="menu-link">
@@ -62,10 +47,26 @@
                     <div data-i18n="User">Management User</div>
                 </a>
             </li>
+            <li class="menu-item {{ request()->is('kategori*') ? 'active' : '' }}">
+                <a href="/kategori" class="menu-link">
+                    <i class="menu-icon fa-solid fa-tags"></i>
+                    <div data-i18n="Kategori">Kategori Layanan</div>
+                </a>
+            </li>
         @endif
 
         {{-- MENU KHUSUS WO --}}
         @if(auth()->user()->role === 'wo')
+         <!-- HEADER UTAMA -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Utama</span>
+            </li>
+            <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
+                <a href="/dashboard" class="menu-link">
+                    <i class="menu-icon fa-solid fa-house"></i>
+                    <div data-i18n="Dashboard">Dashboard</div>
+                </a>
+            </li>
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">Manajemen Bisnis</span>
             </li>
@@ -88,7 +89,7 @@
                 </a>
             </li>
             <li class="menu-item {{ request()->is('profile-wo*') ? 'active' : '' }}">
-                <a href="/profile-wo" class="menu-link">
+                <a href="/profile-wo/admin" class="menu-link">
                     <i class="menu-icon fa-solid fa-store"></i>
                     <div data-i18n="ProfileWO">Profil Bisnis WO</div>
                 </a>
