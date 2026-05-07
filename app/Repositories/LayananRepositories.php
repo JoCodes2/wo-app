@@ -32,6 +32,7 @@ class LayananRepositories implements LayananInterfaces
         }
 
         $data = $this->Layanan
+            ->with(['kategori'])
             ->where('wo_id', $profilWo->id)
             ->latest()
             ->get();

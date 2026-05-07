@@ -110,7 +110,8 @@ class LayananService {
             const data = response.data || [];
 
             data.forEach((item, index) => {
-                const kategoriName = item.kategori?.nama_kategori ?? '-';
+                // Backend kadang mengirim kategori dalam bentuk berbeda (relasi atau field kategori_*)
+                const kategoriName = item.kategori?.nama_kategori ?? item.kategori_nama_kategori ?? item.kategori_name ?? item.kategori_name_layanan ?? '-';
                 const kategoriBadge = `<span class="badge bg-label-info rounded-pill px-3 py-2">
                     <i class="fa-solid fa-tag me-1"></i>${kategoriName}
                 </span>`;
