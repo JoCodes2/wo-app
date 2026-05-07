@@ -20,6 +20,7 @@ class PemesananSeeder extends Seeder
                 'layanan_id' => $layanan->id,
                 'tgl_acara' => now()->addMonths(2),
                 'lokasi_acara' => 'Gedung Serbaguna Palu',
+                'total_bayar' => 200000,
                 'status_pesanan' => 'selesai'
             ]);
         }

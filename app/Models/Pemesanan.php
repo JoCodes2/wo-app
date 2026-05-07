@@ -19,6 +19,7 @@ class Pemesanan extends Model
         'tgl_acara',
         'lokasi_acara',
         'catatan',
+        'total_bayar',
         'status_pesanan',
     ];
 

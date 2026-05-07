@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tgl_acara');
             $table->text('lokasi_acara');
             $table->text('catatan')->nullable();
+            $table->integer('total_bayar');
             $table->enum('status_pesanan', ['menunggu', 'proses', 'selesai'])->default('menunggu');
             $table->timestamps();
         });
