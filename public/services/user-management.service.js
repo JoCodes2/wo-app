@@ -128,7 +128,7 @@ class UserManagementService {
             $('#detail_tahun').text(profil.tahun_bergabung || '-');
 
             const logoPath = profil.foto_logo
-                ? `${appUrl}/storage/${profil.foto_logo}`
+                ? `${appUrl}/uploads/logo/${profil.foto_logo}`
                 : `${appUrl}/assets/img/default-logo.png`;
             $('#detail_foto_logo').attr('src', logoPath);
 

@@ -6,9 +6,10 @@
         <div class="col-md-4">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-body text-center py-5">
-                    <div class="mb-3">
-                        <img id="display_logo" src="{{ asset('assets/img/default-wo.png') }}"
-                             class="rounded-circle img-thumbnail shadow-sm" style="width: 150px; height: 150px; object-fit: cover;">
+                    <div class="mb-3 text-center">
+                       <img id="display_logo" src="{{ asset('assets/img/default-wo.png') }}"
+                        class="rounded-circle img-thumbnail shadow-sm d-block mx-auto"
+                        style="width: 150px; height: 150px; object-fit: cover;">
                     </div>
                     <h4 class="fw-bold mb-1" id="display_nama_wo">Nama WO</h4>
                     <p class="text-muted small mb-3" id="display_email">email@wo.com</p>
