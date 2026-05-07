@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li class="menu-item {{ request()->is('profile-wo*') ? 'active' : '' }}">
-                <a href="/profile-wo" class="menu-link">
+                <a href="/profile-wo/admin" class="menu-link">
                     <i class="menu-icon fa-solid fa-store"></i>
                     <div data-i18n="ProfileWO">Profil Bisnis WO</div>
                 </a>
