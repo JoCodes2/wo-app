@@ -6,44 +6,81 @@ $(document).ready(function () {
     galeri.getAllData();
 
     function validation() {
-        $('#formSimpanGaleri').validate({
-            ignore: [],
-            rules: {
-                foto_portofolio: {
-                    required: true
-                },
-                keterangan: {
-                    required: true,
-                    maxlength: 500
-                }
-            },
-            messages: {
-                foto_portofolio: {
-                    required: "Foto portofolio wajib diunggah"
-                },
-                keterangan: {
-                    required: "Keterangan wajib diisi",
-                    maxlength: "Keterangan maksimal 500 karakter"
-                }
-            },
-            errorElement: 'small',
-            errorPlacement: function (error, element) {
-                error.addClass('text-danger');
-                const errorId = '#error-' + element.attr('name');
-                if ($(errorId).length) {
-                    $(errorId).html(error);
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-            highlight: function (element) {
-                $(element).addClass('is-invalid').removeClass('is-valid');
-            },
-            unhighlight: function (element) {
-                $(element).removeClass('is-invalid').addClass('is-valid');
+
+    // Custom validator ukuran file
+    $.validator.addMethod(
+        "filesize",
+        function (value, element, param) {
+
+            if (element.files.length === 0) {
+                return true;
             }
-        });
-    }
+
+            return element.files[0].size <= param * 1024;
+
+        },
+        "Ukuran file terlalu besar"
+    );
+
+    $('#formSimpanGaleri').validate({
+
+        ignore: [],
+
+        rules: {
+            foto_portofolio: {
+                required: true,
+                filesize: 2048
+            },
+
+            keterangan: {
+                required: true,
+                maxlength: 500
+            }
+        },
+
+        messages: {
+
+            foto_portofolio: {
+                required: "Foto portofolio wajib diunggah",
+                filesize: "Ukuran gambar maksimal 2 MB"
+            },
+
+            keterangan: {
+                required: "Keterangan wajib diisi",
+                maxlength: "Keterangan maksimal 500 karakter"
+            }
+        },
+
+        errorElement: 'small',
+
+        errorPlacement: function (error, element) {
+
+            error.addClass('text-danger');
+
+            const errorId = '#error-' + element.attr('name');
+
+            if ($(errorId).length) {
+                $(errorId).html(error);
+            } else {
+                error.insertAfter(element);
+            }
+        },
+
+        highlight: function (element) {
+
+            $(element)
+                .addClass('is-invalid')
+                .removeClass('is-valid');
+        },
+
+        unhighlight: function (element) {
+
+            $(element)
+                .removeClass('is-invalid')
+                .addClass('is-valid');
+        }
+    });
+}
 
     validation();
 
