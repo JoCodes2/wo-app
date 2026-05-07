@@ -120,6 +120,7 @@ Route::prefix('wo')->group(function () {
         Route::post('/create', 'createData');
         Route::get('/get/{id}', 'getDataById');
         Route::post('/konfirmasi/{id}', 'konfirmasiPesanan');
+        Route::post('/ulasan/create', 'createUlasan');
     });
 });
 Route::prefix('landing')->controller(LandingPageController::class)->group(function () {

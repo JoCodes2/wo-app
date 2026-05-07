@@ -43,4 +43,14 @@ class PemesananController extends Controller
     {
         return $this->pemesananRepo->getLayananById($id);
     }
+    public function createUlasan(Request $request)
+    {
+        $request->validate([
+            'pemesanan_id' => 'required|uuid',
+            'rating' => 'required|integer|min:1|max:5',
+            'komentar' => 'nullable|string'
+        ]);
+
+        return $this->pemesananRepo->createUlasan($request);
+    }
 }

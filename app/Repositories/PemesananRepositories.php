@@ -6,6 +6,7 @@ use App\Interfaces\PemesananInterfaces;
 use App\Http\Requests\PemesananRequest;
 use App\Models\Layanan;
 use App\Models\Pemesanan;
+use App\Models\Ulasan;
 use App\Traits\HttpResponseTraits;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class PemesananRepositories implements PemesananInterfaces
     public function getAllData()
     {
         $user = Auth::user();
-        $query = $this->pemesanan->with(['user', 'layanan.wo']);
+        $query = $this->pemesanan->with(['user', 'layanan.wo', 'ulasan']);
 
         if ($user->role === 'user') {
             $query->where('user_id', $user->id);
@@ -77,6 +78,39 @@ class PemesananRepositories implements PemesananInterfaces
         }
 
         return $this->success($data);
+    }
+    public function createUlasan($request)
+    {
+        try {
+            $pemesanan = $this->pemesanan->find($request->pemesanan_id);
+
+            if (!$pemesanan) return $this->idOrDataNotFound();
+
+            if ($pemesanan->user_id !== Auth::id()) {
+                return $this->error("Akses ditolak", 403);
+            }
+
+            if ($pemesanan->status_pesanan !== 'selesai') {
+                return $this->error("Ulasan hanya dapat diberikan jika status pesanan sudah selesai", 400);
+            }
+
+            $exists = Ulasan::where('pemesanan_id', $request->pemesanan_id)->exists();
+            if ($exists) {
+                return $this->error("Anda sudah memberikan ulasan untuk pesanan ini", 400);
+            }
+
+            $result = Ulasan::create([
+                'id' => Str::uuid(),
+                'pemesanan_id' => $request->pemesanan_id,
+                'user_id' => Auth::id(),
+                'rating' => $request->rating,
+                'komentar' => $request->komentar,
+            ]);
+
+            return $this->success($result, "Terima kasih atas ulasan Anda");
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage(), 400, $th, class_basename($this), __FUNCTION__);
+        }
     }
 
     public function konfirmasiPesanan($id, $status)

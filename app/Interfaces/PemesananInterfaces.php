@@ -10,5 +10,6 @@ interface PemesananInterfaces
     public function createData(PemesananRequest $request);
     public function konfirmasiPesanan($id, $status);
     public function getDataById($id);
+    public function createUlasan($request);
     public function getLayananById($id);
 }
