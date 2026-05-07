@@ -53,17 +53,18 @@ Route::middleware(['auth', 'web'])->group(function () {
     })->where('id', '[0-9a-fA-F-]{36}')->name('checkout.index')->middleware('role:user');
 
     // admin
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard');
-    })->middleware('role:admin,wo');
-    Route::get('/kategori', function () {
-        return view('pages.kategori');
-    })->middleware('role:admin');
     Route::get('/user', function () {
         return view('pages.user ');
     })->middleware('role:admin');
+    Route::get('/kategori', function () {
+        return view('pages.kategori');
+    })->middleware('role:admin');
 
     // wo
+
+    Route::get('/dashboard', function () {
+        return view('pages.dashboard');
+    })->middleware('role:wo');
     Route::get('/profile-wo/admin', function () {
         $user = Auth::user();
         if (!$user) {
@@ -76,6 +77,9 @@ Route::middleware(['auth', 'web'])->group(function () {
     })->middleware('role:wo');
     Route::get('/layanan', function () {
         return view('pages.layanan');
+    })->middleware('role:wo');
+    Route::get('/pemesanan', function () {
+        return view('pages.data-transaksi');
     })->middleware('role:wo');
 
     Route::post('wo/logout', [AuthController::class, 'logout'])->name('logout');

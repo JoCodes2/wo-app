@@ -42,7 +42,7 @@ class authService {
                     } else if (role === 'user') {
                         window.location.href = '/profile-saya';
                     } else {
-                        window.location.href = '/dashboard';
+                        window.location.href = '/user';
                     }
                 }, 1000);
             }

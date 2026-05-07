@@ -20,7 +20,6 @@
                 $headers = [
                     'No',
                     'Nama Kategori',
-                    'Jumlah Layanan',
                     'Aksi',
                 ];
             @endphp
