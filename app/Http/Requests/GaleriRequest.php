@@ -26,10 +26,17 @@ class GaleriRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'wo_id.string' => 'WO ID harus berupa string.',
-            'wo_id.required' => 'WO ID wajib diisi.',
-            'foto_portofolio.required' => 'Foto portofolio wajib diisi.',
-            'keterangan.required' => 'Keterangan wajib diisi.',
+            'wo_id.string'                    => 'ID WO harus berupa teks.',
+
+            'foto_portofolio.required'        => 'Foto portofolio wajib diunggah.',
+            'foto_portofolio.file'            => 'File portofolio tidak valid.',
+            'foto_portofolio.image'           => 'File harus berupa gambar.',
+            'foto_portofolio.mimes'           => 'Format gambar harus jpeg, png, jpg, atau webp.',
+            'foto_portofolio.max'             => 'Ukuran gambar maksimal 2 MB.',
+
+            'keterangan.required'             => 'Keterangan wajib diisi.',
+            'keterangan.string'               => 'Keterangan harus berupa teks.',
+            'keterangan.max'                  => 'Keterangan maksimal 500 karakter.',
         ];
     }
 
