@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CMS\AuthController;
+use App\Http\Controllers\CMS\DashboardController;
 use App\Http\Controllers\CMS\GaleriController;
 use App\Http\Controllers\CMS\KategoriController;
 use App\Http\Controllers\CMS\LayananController;
@@ -49,10 +50,11 @@ Route::middleware(['auth', 'web'])->group(function () {
         }
         return view('web.profile-saya', compact('user'));
     });
-    // admin
+    // admin & wo
+    // UI dashboard (data diambil dari endpoint /dashboard/admin-stats dan /dashboard/wo-stats)
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
-    });
+    })->name('dashboard');
 
     Route::get('/layanan', function () {
         return view('pages.layanan');
@@ -74,6 +76,12 @@ Route::middleware(['auth', 'web'])->group(function () {
     });
 
     Route::post('wo/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Dashboard stats routes
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/admin-stats', [DashboardController::class, 'adminStats']);
+        Route::get('/wo-stats', [DashboardController::class, 'woStats']);
+    });
 });
 
 

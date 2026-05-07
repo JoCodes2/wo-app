@@ -26,7 +26,17 @@ class GaleriRepositories implements GaleriInterfaces
 
     public function getAllData()
     {
-        $data = $this->Galeri->latest()->get();
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
+        if (!$profilWo) {
+            return $this->dataNotFound();
+        }
+
+        $data = $this->Galeri
+            ->where('wo_id', $profilWo->id)
+            ->latest()
+            ->get();
 
         if ($data->isEmpty()) {
             return $this->dataNotFound();
@@ -39,7 +49,15 @@ class GaleriRepositories implements GaleriInterfaces
     public function createData(GaleriRequest $request)
     {
         try {
+            $user = Auth::user();
+            $profilWo = $user->profilWo;
+
+            if (!$profilWo) {
+                return $this->error('Profil WO tidak ditemukan. Lengkapi profil bisnis terlebih dahulu.', 403);
+            }
+
             $data = $request->all();
+            $data['wo_id'] = $profilWo->id;
 
             if ($request->hasFile('foto_portofolio')) {
                 $file = $request->file('foto_portofolio');
@@ -62,19 +80,36 @@ class GaleriRepositories implements GaleriInterfaces
     }
     public function getDataById($id)
     {
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
         $data = $this->Galeri::find($id);
         if (!$data) {
             return $this->dataNotFound();
         }
+
+        // Pastikan data milik WO yang login
+        if ($profilWo && $data->wo_id !== $profilWo->id) {
+            return $this->error('Anda tidak memiliki akses ke data ini.', 403);
+        }
+
         return $this->success($data);
     }
 
 
     public function deleteData($id)
     {
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
         $data = $this->Galeri->find($id);
         if (!$data) {
             return $this->idOrDataNotFound();
+        }
+
+        // Pastikan data milik WO yang login
+        if ($profilWo && $data->wo_id !== $profilWo->id) {
+            return $this->error('Anda tidak memiliki akses untuk menghapus data ini.', 403);
         }
 
         // Hapus file dari storage jika ada

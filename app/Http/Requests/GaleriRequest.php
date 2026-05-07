@@ -17,7 +17,7 @@ class GaleriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'wo_id'             => 'required|string',
+            'wo_id'             => 'nullable|string',
             'foto_portofolio'   => 'required|file|image|mimes:jpeg,png,jpg,webp|max:2048',
             'keterangan'        => 'required|string|max:500',
         ];

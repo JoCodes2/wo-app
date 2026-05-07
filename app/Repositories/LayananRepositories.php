@@ -24,7 +24,17 @@ class LayananRepositories implements LayananInterfaces
 
     public function getAllData()
     {
-        $data = $this->Layanan->latest()->get();
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
+        if (!$profilWo) {
+            return $this->dataNotFound();
+        }
+
+        $data = $this->Layanan
+            ->where('wo_id', $profilWo->id)
+            ->latest()
+            ->get();
 
         if ($data->isEmpty()) {
             return $this->dataNotFound();
@@ -37,8 +47,19 @@ class LayananRepositories implements LayananInterfaces
     public function createData(LayananRequest $request)
     {
         try {
-            $data = $this->Layanan->create($request->all());
-            return $this->success($data);
+            $user = Auth::user();
+            $profilWo = $user->profilWo;
+
+            if (!$profilWo) {
+                return $this->error('Profil WO tidak ditemukan. Lengkapi profil bisnis terlebih dahulu.', 403);
+            }
+
+            $data = array_merge($request->all(), [
+                'wo_id' => $profilWo->id,
+            ]);
+
+            $result = $this->Layanan->create($data);
+            return $this->success($result);
         } catch (\Throwable $th) {
             return $this->error(
                 $th->getMessage(),
@@ -51,12 +72,20 @@ class LayananRepositories implements LayananInterfaces
     }
     public function getDataById($id)
     {
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
         $data = $this->Layanan
             ->with(['wo', 'kategori'])
             ->find($id);
 
         if (!$data) {
             return $this->idOrDataNotFound();
+        }
+
+        // Pastikan data milik WO yang login
+        if ($profilWo && $data->wo_id !== $profilWo->id) {
+            return $this->error('Anda tidak memiliki akses ke data ini.', 403);
         }
 
         return $this->success($data);
@@ -66,11 +95,20 @@ class LayananRepositories implements LayananInterfaces
     public function updateData($id, LayananRequest $request)
     {
         try {
+            $user = Auth::user();
+            $profilWo = $user->profilWo;
+
             $data = $this->Layanan->find($id);
             if (!$data) {
                 return $this->idOrDataNotFound();
             }
-            $data->update($request->all());
+
+            // Pastikan data milik WO yang login
+            if ($profilWo && $data->wo_id !== $profilWo->id) {
+                return $this->error('Anda tidak memiliki akses untuk mengubah data ini.', 403);
+            }
+
+            $data->update($request->except('wo_id'));
             return $this->success($data);
         } catch (\Throwable $th) {
             return $this->error(
@@ -84,10 +122,19 @@ class LayananRepositories implements LayananInterfaces
     }
     public function deleteData($id)
     {
+        $user = Auth::user();
+        $profilWo = $user->profilWo;
+
         $data = $this->Layanan->find($id);
         if (!$data) {
             return $this->idOrDataNotFound();
         }
+
+        // Pastikan data milik WO yang login
+        if ($profilWo && $data->wo_id !== $profilWo->id) {
+            return $this->error('Anda tidak memiliki akses untuk menghapus data ini.', 403);
+        }
+
         $data->delete();
         return $this->delete();
     }
